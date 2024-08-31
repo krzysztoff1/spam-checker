@@ -7,8 +7,11 @@ export class CommentController {
   constructor(private contentValidationService: ContentValidationService) {}
 
   @Post()
-  validateComment(@Body() comment: validateCommentDto, @Res() res: Response) {
-    this.contentValidationService.validateContent(comment.content);
+  async validateComment(
+    @Body() comment: validateCommentDto,
+    @Res() res: Response,
+  ) {
+    await this.contentValidationService.validateContent(comment.content);
     return res.status(HttpStatus.OK).send();
   }
 }

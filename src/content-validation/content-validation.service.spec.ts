@@ -17,14 +17,14 @@ describe('ContentValidationService', () => {
   });
 
   it('should throw an error if content is less than 3 characters', () => {
-    expect(() => service.validateContent('')).toThrow(
+    expect(async () => await service.validateContent('')).rejects.toThrow(
       'Content must be between 3 and 1000 characters',
     );
   });
 
-  it('should throw an error if content is more than 1000 characters', () => {
-    expect(() => service.validateContent('a'.repeat(1001))).toThrow(
-      'Content must be between 3 and 1000 characters',
-    );
+  it('should throw an error if content is more than 1000 characters', async () => {
+    await expect(
+      async () => await service.validateContent('a'.repeat(1001)),
+    ).rejects.toThrow('Content must be between 3 and 1000 characters');
   });
 });
